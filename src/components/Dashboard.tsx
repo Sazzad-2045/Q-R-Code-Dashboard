@@ -222,61 +222,61 @@ const Dashboard = () => {
   const renderMyQRCodes = () => (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <h2 className="text-2xl font-bold">{t.myQRCodes}</h2>
-        <Button onClick={() => setActiveTab('createQR')}>
+        <h2 className="text-2xl font-bold text-blue-900">{t.myQRCodes}</h2>
+        <Button onClick={() => setActiveTab('createQR')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
           <Plus className="h-4 w-4 mr-2" />
           Create New QR
         </Button>
       </div>
       
-      <Card className="glass-card">
+      <Card className="glass-card border-blue-100 shadow-lg">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b">
+              <thead className="border-b border-blue-100 bg-gradient-to-r from-blue-50 to-purple-50">
                 <tr>
-                  <th className="text-left p-4 font-medium">{t.name}</th>
-                  <th className="text-left p-4 font-medium">{t.type}</th>
-                  <th className="text-left p-4 font-medium">{t.scans}</th>
-                  <th className="text-left p-4 font-medium">{t.status}</th>
-                  <th className="text-left p-4 font-medium">{t.actions}</th>
+                  <th className="text-left p-4 font-medium text-blue-800">{t.name}</th>
+                  <th className="text-left p-4 font-medium text-blue-800">{t.type}</th>
+                  <th className="text-left p-4 font-medium text-blue-800">{t.scans}</th>
+                  <th className="text-left p-4 font-medium text-blue-800">{t.status}</th>
+                  <th className="text-left p-4 font-medium text-blue-800">{t.actions}</th>
                 </tr>
               </thead>
               <tbody>
                 {mockQRCodes.map((qr) => (
-                  <tr key={qr.id} className="border-b hover:bg-accent/50 transition-colors">
+                  <tr key={qr.id} className="border-b border-blue-50 hover:bg-blue-50/50 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-primary/10 rounded flex items-center justify-center">
-                          <QrCode className="h-4 w-4 text-primary" />
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded flex items-center justify-center">
+                          <QrCode className="h-4 w-4 text-blue-600" />
                         </div>
                         <div>
-                          <p className="font-medium">{qr.name}</p>
-                          <p className="text-sm text-muted-foreground">Created {qr.created}</p>
+                          <p className="font-medium text-blue-900">{qr.name}</p>
+                          <p className="text-sm text-blue-600">Created {qr.created}</p>
                         </div>
                       </div>
                     </td>
                     <td className="p-4">
-                      <Badge variant="outline">{qr.type}</Badge>
+                      <Badge variant="outline" className="border-blue-200 text-blue-700">{qr.type}</Badge>
                     </td>
-                    <td className="p-4 font-medium">{qr.scans.toLocaleString()}</td>
+                    <td className="p-4 font-medium text-blue-900">{qr.scans.toLocaleString()}</td>
                     <td className="p-4">
-                      <Badge variant={qr.status === 'active' ? 'default' : 'secondary'}>
+                      <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : ''}>
                         {qr.status === 'active' ? t.active : t.paused}
                       </Badge>
                     </td>
                     <td className="p-4">
                       <div className="flex gap-2">
-                        <Button size="sm" variant="ghost">
+                        <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-50">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="ghost">
+                        <Button size="sm" variant="ghost" className="text-purple-600 hover:bg-purple-50">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="ghost">
+                        <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-50">
                           <Download className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="ghost">
+                        <Button size="sm" variant="ghost" className="text-red-600 hover:bg-red-50">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -368,78 +368,6 @@ const Dashboard = () => {
           )}
         </main>
       </div>
-    </div>
-  );
-
-  const renderMyQRCodes = () => (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <h2 className="text-2xl font-bold text-blue-900">{t.myQRCodes}</h2>
-        <Button onClick={() => setActiveTab('createQR')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-          <Plus className="h-4 w-4 mr-2" />
-          Create New QR
-        </Button>
-      </div>
-      
-      <Card className="glass-card border-blue-100 shadow-lg">
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-blue-100 bg-gradient-to-r from-blue-50 to-purple-50">
-                <tr>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.name}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.type}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.scans}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.status}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.actions}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {mockQRCodes.map((qr) => (
-                  <tr key={qr.id} className="border-b border-blue-50 hover:bg-blue-50/50 transition-colors">
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded flex items-center justify-center">
-                          <QrCode className="h-4 w-4 text-blue-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-blue-900">{qr.name}</p>
-                          <p className="text-sm text-blue-600">Created {qr.created}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <Badge variant="outline" className="border-blue-200 text-blue-700">{qr.type}</Badge>
-                    </td>
-                    <td className="p-4 font-medium text-blue-900">{qr.scans.toLocaleString()}</td>
-                    <td className="p-4">
-                      <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : ''}>
-                        {qr.status === 'active' ? t.active : t.paused}
-                      </Badge>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-50">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="ghost" className="text-purple-600 hover:bg-purple-50">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-50">
-                          <Download className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="ghost" className="text-red-600 hover:bg-red-50">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
