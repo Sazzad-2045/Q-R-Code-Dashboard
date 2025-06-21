@@ -18,6 +18,7 @@ import {
 import QRCodeGenerator from './QRCodeGenerator';
 import { ChartContainer } from "@/components/ui/chart";
 import { Table } from "@/components/ui/table";
+import QRWisePerformanceTable from "@/components/QRWisePerformanceTable";
 
 interface QRCode {
   id: string;
@@ -236,17 +237,17 @@ const Dashboard = () => {
             <table className="w-full">
               <thead className="border-b border-blue-100 bg-gradient-to-r from-blue-50 to-purple-50">
                 <tr>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.name}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.type}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.scans}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.status}</th>
-                  <th className="text-left p-4 font-medium text-blue-800">{t.actions}</th>
+                  <th className="p-2 text-left text-blue-700">Name</th>
+                  <th className="p-2 text-left text-blue-700">Type</th>
+                  <th className="p-2 text-left text-blue-700">Scans</th>
+                  <th className="p-2 text-left text-blue-700">Status</th>
+                  <th className="p-2 text-left text-blue-700">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {mockQRCodes.map((qr) => (
                   <tr key={qr.id} className="border-b border-blue-50 hover:bg-blue-50/50 transition-colors">
-                    <td className="p-4">
+                    <td className="p-2 text-blue-700">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded flex items-center justify-center">
                           <QrCode className="h-4 w-4 text-blue-600" />
@@ -257,16 +258,16 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2 text-blue-700">
                       <Badge variant="outline" className="border-blue-200 text-blue-700">{qr.type}</Badge>
                     </td>
-                    <td className="p-4 font-medium text-blue-900">{qr.scans.toLocaleString()}</td>
-                    <td className="p-4">
+                    <td className="p-2 text-blue-700 font-medium text-blue-900">{qr.scans.toLocaleString()}</td>
+                    <td className="p-2">
                       <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}>
                         {qr.status === 'active' ? t.active : t.paused}
                       </Badge>
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       <div className="flex gap-2">
                         <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-50">
                           <Eye className="h-4 w-4" />
@@ -360,7 +361,7 @@ const Dashboard = () => {
           {activeTab === 'createQR' && <QRCodeGenerator />}
           {(activeTab === 'analytics') && (
             <div className="space-y-8">
-              {/* Scan Graphs */}
+              {/* Scan Graphs Table Container */}
               <Card className="glass-card border-blue-100 shadow-lg">
                 <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
                   <CardTitle className="flex items-center gap-2 text-blue-800">
@@ -369,70 +370,81 @@ const Dashboard = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Date-wise */}
-                    <div>
-                      <h4 className="font-semibold mb-2 text-blue-700">Date-wise</h4>
-                      <ChartContainer config={{ date: { color: '#6366f1', label: 'Scans' } }} style={{ height: 200 }}>
-                        {/* Example: Add your recharts LineChart/BarChart here */}
-                        <div className="flex items-center justify-center h-full text-blue-400">[Date-wise Chart]</div>
-                      </ChartContainer>
-                    </div>
-                    {/* Device-wise */}
-                    <div>
-                      <h4 className="font-semibold mb-2 text-blue-700">Device-wise</h4>
-                      <ChartContainer config={{ device: { color: '#a21caf', label: 'Scans' } }} style={{ height: 200 }}>
-                        <div className="flex items-center justify-center h-full text-purple-400">[Device-wise Chart]</div>
-                      </ChartContainer>
-                    </div>
-                    {/* Location-wise */}
-                    <div>
-                      <h4 className="font-semibold mb-2 text-blue-700">Location-wise</h4>
-                      <ChartContainer config={{ location: { color: '#f59e42', label: 'Scans' } }} style={{ height: 200 }}>
-                        <div className="flex items-center justify-center h-full text-yellow-500">[Location-wise Chart]</div>
-                      </ChartContainer>
-                    </div>
+                  <div className="overflow-x-auto rounded-lg border border-blue-100 bg-white">
+                    <table className="min-w-full divide-y divide-blue-100">
+                      <thead className="bg-blue-50">
+                        <tr>
+                          <th className="px-4 py-2 text-left text-blue-700">Date</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Device</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Location</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Scans</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">2025-06-20</td>
+                          <td className="px-4 py-2 text-blue-700">Mobile</td>
+                          <td className="px-4 py-2 text-blue-700">Dhaka</td>
+                          <td className="px-4 py-2 text-blue-700">120</td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">2025-06-20</td>
+                          <td className="px-4 py-2 text-blue-700">Desktop</td>
+                          <td className="px-4 py-2 text-blue-700">Chittagong</td>
+                          <td className="px-4 py-2 text-blue-700">80</td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">2025-06-19</td>
+                          <td className="px-4 py-2 text-blue-700">Tablet</td>
+                          <td className="px-4 py-2 text-blue-700">Khulna</td>
+                          <td className="px-4 py-2 text-blue-700">45</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </CardContent>
               </Card>
-
-              {/* QR-wise Performance Table */}
+              {/* QR Wise Performance Table Container */}
               <Card className="glass-card border-blue-100 shadow-lg">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex flex-row items-center justify-between">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
                   <CardTitle className="flex items-center gap-2 text-blue-800">
                     <BarChart3 className="h-5 w-5 text-blue-600" />
-                    QR-wise Performance
+                    QR Wise Performance
                   </CardTitle>
-                  <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => alert('Export CSV')}>Export CSV</Button>
-                    <Button size="sm" variant="outline" className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => alert('Export PDF')}>Export PDF</Button>
-                  </div>
                 </CardHeader>
                 <CardContent className="p-6">
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th className="p-2 text-left">Name</th>
-                        <th className="p-2 text-left">Type</th>
-                        <th className="p-2 text-left">Scans</th>
-                        <th className="p-2 text-left">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {mockQRCodes.map(qr => (
-                        <tr key={qr.id} className="border-b last:border-0">
-                          <td className="p-2">{qr.name}</td>
-                          <td className="p-2">{qr.type}</td>
-                          <td className="p-2">{qr.scans}</td>
-                          <td className="p-2">
-                            <Badge className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}>
-                              {qr.status === 'active' ? t.active : t.paused}
-                            </Badge>
-                          </td>
+                  <div className="overflow-x-auto rounded-lg border border-blue-100 bg-white">
+                    <table className="min-w-full divide-y divide-blue-100">
+                      <thead className="bg-blue-50">
+                        <tr>
+                          <th className="px-4 py-2 text-left text-blue-700">Name</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Type</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Scans</th>
+                          <th className="px-4 py-2 text-left text-blue-700">Status</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">Restaurant Menu</td>
+                          <td className="px-4 py-2 text-blue-700">URL</td>
+                          <td className="px-4 py-2 text-blue-700">2450</td>
+                          <td className="px-4 py-2"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">Active</span></td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">Business Card</td>
+                          <td className="px-4 py-2 text-blue-700">vCard</td>
+                          <td className="px-4 py-2 text-blue-700">890</td>
+                          <td className="px-4 py-2"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">Active</span></td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 py-2 text-blue-700">Event Ticket</td>
+                          <td className="px-4 py-2 text-blue-700">Text</td>
+                          <td className="px-4 py-2 text-blue-700">1200</td>
+                          <td className="px-4 py-2"><span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Paused</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </CardContent>
               </Card>
             </div>
