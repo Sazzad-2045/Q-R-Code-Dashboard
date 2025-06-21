@@ -404,8 +404,8 @@ const Dashboard = () => {
                     QR-wise Performance
                   </CardTitle>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => alert('Export CSV')}>Export CSV</Button>
-                    <Button size="sm" variant="outline" onClick={() => alert('Export PDF')}>Export PDF</Button>
+                    <Button size="sm" variant="outline" className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => alert('Export CSV')}>Export CSV</Button>
+                    <Button size="sm" variant="outline" className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => alert('Export PDF')}>Export PDF</Button>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6">
