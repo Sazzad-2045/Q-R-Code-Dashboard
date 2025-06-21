@@ -16,6 +16,8 @@ import {
   Trash2
 } from 'lucide-react';
 import QRCodeGenerator from './QRCodeGenerator';
+import { ChartContainer } from "@/components/ui/chart";
+import { Table } from "@/components/ui/table";
 
 interface QRCode {
   id: string;
@@ -356,7 +358,86 @@ const Dashboard = () => {
           {activeTab === 'dashboard' && renderDashboardContent()}
           {activeTab === 'myQRCodes' && renderMyQRCodes()}
           {activeTab === 'createQR' && <QRCodeGenerator />}
-          {(activeTab === 'analytics' || activeTab === 'templates' || activeTab === 'settings') && (
+          {(activeTab === 'analytics') && (
+            <div className="space-y-8">
+              {/* Scan Graphs */}
+              <Card className="glass-card border-blue-100 shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
+                  <CardTitle className="flex items-center gap-2 text-blue-800">
+                    <BarChart3 className="h-5 w-5 text-blue-600" />
+                    Scan Graphs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Date-wise */}
+                    <div>
+                      <h4 className="font-semibold mb-2 text-blue-700">Date-wise</h4>
+                      <ChartContainer config={{ date: { color: '#6366f1', label: 'Scans' } }} style={{ height: 200 }}>
+                        {/* Example: Add your recharts LineChart/BarChart here */}
+                        <div className="flex items-center justify-center h-full text-blue-400">[Date-wise Chart]</div>
+                      </ChartContainer>
+                    </div>
+                    {/* Device-wise */}
+                    <div>
+                      <h4 className="font-semibold mb-2 text-blue-700">Device-wise</h4>
+                      <ChartContainer config={{ device: { color: '#a21caf', label: 'Scans' } }} style={{ height: 200 }}>
+                        <div className="flex items-center justify-center h-full text-purple-400">[Device-wise Chart]</div>
+                      </ChartContainer>
+                    </div>
+                    {/* Location-wise */}
+                    <div>
+                      <h4 className="font-semibold mb-2 text-blue-700">Location-wise</h4>
+                      <ChartContainer config={{ location: { color: '#f59e42', label: 'Scans' } }} style={{ height: 200 }}>
+                        <div className="flex items-center justify-center h-full text-yellow-500">[Location-wise Chart]</div>
+                      </ChartContainer>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* QR-wise Performance Table */}
+              <Card className="glass-card border-blue-100 shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex flex-row items-center justify-between">
+                  <CardTitle className="flex items-center gap-2 text-blue-800">
+                    <BarChart3 className="h-5 w-5 text-blue-600" />
+                    QR-wise Performance
+                  </CardTitle>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" onClick={() => alert('Export CSV')}>Export CSV</Button>
+                    <Button size="sm" variant="outline" onClick={() => alert('Export PDF')}>Export PDF</Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th className="p-2 text-left">Name</th>
+                        <th className="p-2 text-left">Type</th>
+                        <th className="p-2 text-left">Scans</th>
+                        <th className="p-2 text-left">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockQRCodes.map(qr => (
+                        <tr key={qr.id} className="border-b last:border-0">
+                          <td className="p-2">{qr.name}</td>
+                          <td className="p-2">{qr.type}</td>
+                          <td className="p-2">{qr.scans}</td>
+                          <td className="p-2">
+                            <Badge className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}>
+                              {qr.status === 'active' ? t.active : t.paused}
+                            </Badge>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+          {(activeTab === 'templates' || activeTab === 'settings') && (
             <div className="text-center py-20">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Settings className="h-8 w-8 text-blue-600" />
