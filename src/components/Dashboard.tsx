@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -164,7 +163,7 @@ const Dashboard = () => {
                       <p className="text-sm text-blue-600">{qr.type} • {qr.scans} scans</p>
                     </div>
                   </div>
-                  <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : ''}>
+                  <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}>
                     {qr.status === 'active' ? t.active : t.paused}
                   </Badge>
                 </div>
@@ -261,7 +260,7 @@ const Dashboard = () => {
                     </td>
                     <td className="p-4 font-medium text-blue-900">{qr.scans.toLocaleString()}</td>
                     <td className="p-4">
-                      <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : ''}>
+                      <Badge variant={qr.status === 'active' ? 'default' : 'secondary'} className={qr.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}>
                         {qr.status === 'active' ? t.active : t.paused}
                       </Badge>
                     </td>
